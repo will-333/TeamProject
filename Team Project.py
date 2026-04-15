@@ -10,7 +10,7 @@ class SecureBrowserSimulator:
 
         self.malicious_keywords = {"hack", "free-money", "login-verify", "update-account"}
 
-    #Actually visiting URL
+    #Actually visiting URL.
     def visit(self, url):
         domain = self.extract_domain(url)
 
