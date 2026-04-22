@@ -1,3 +1,9 @@
+#Will Horton
+#Jack Poitras
+#Davon Shields
+
+
+#Creating the actual SecureBrowser class
 class SecureBrowserSimulator:
     def __init__(self):
         self.back_stack = []
@@ -8,6 +14,7 @@ class SecureBrowserSimulator:
         #The malicious domains/websites
         self.malicious_domains = {"malware.com", "phishing.net", "danger-site.org"}
 
+        #Malicious key words that are common in urls
         self.malicious_keywords = {"hack", "free-money", "login-verify", "update-account"}
 
     # This pulls out only the domain name from the entire URL
@@ -94,9 +101,11 @@ def run_simulator():
     print("Secure Browser Simulator Started")
     print("Commands: visit <url>, back, forward, history, alerts, exit")
 
+    #Infinite loop to keep the program running until user exits
     while True:
         command = input(">> ").strip()
 
+        #Splits string into 2 parts  1) visit 2) the actual url
         if command.startswith("visit "):
             url = command.split(" ", 1)[1]
             browser.visit(url)
@@ -104,22 +113,26 @@ def run_simulator():
         elif command == "back":
             browser.back()
 
+        #Go forward
         elif command == "forward":
             browser.forward()
 
+        #Show History
         elif command == "history":
             browser.history()
 
+        #Show security alerts (malicious sites, etc.)
         elif command == "alerts":
             browser.show_alerts()
 
+        #Exit program
         elif command == "exit":
             print("Exiting browser...")
             break
-
+        #If something unexpected is typed
         else:
             print("Invalid command.")
 
 
-# Start program
+#Start program (main function)
 run_simulator()
