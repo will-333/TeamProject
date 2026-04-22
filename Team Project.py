@@ -10,7 +10,28 @@ class SecureBrowserSimulator:
 
         self.malicious_keywords = {"hack", "free-money", "login-verify", "update-account"}
 
-    #Actually visiting URL.
+    # This pulls out only the domain name from the entire URL
+    def extract_domain(self, url):
+        # simple extraction
+        return url.split("//")[-1].split("/")[0]
+
+    # Detecting the malicious sites
+    def is_malicious(self, url, domain):
+        domain_check = domain in self.malicious_domains
+
+        # Check for suspicious keywords manually
+        keyword_check = False
+        url_lower = url.lower()
+
+        for keyword in self.malicious_keywords:
+            if keyword in url_lower:
+                keyword_check = True
+                break
+
+        return domain_check or keyword_check
+
+
+    #Actually visiting URL
     def visit(self, url):
         domain = self.extract_domain(url)
 
@@ -27,21 +48,7 @@ class SecureBrowserSimulator:
 
         print(f"Visited: {url}")
 
-    #This pulls out only the domain name from the entire URL
-    def extract_domain(self, url):
-        # simple extraction
-        return url.split("//")[-1].split("/")[0]
 
-    #Detecting the malicious sites
-    def is_malicious(self, url, domain):
-        domain_check = domain in self.malicious_domains
-
-        keyword_check = any(
-            keyword.lower() in url.lower()
-            for keyword in self.malicious_keywords
-        )
-
-        return domain_check or keyword_check
 
     #Back Navigation
     def back(self):
